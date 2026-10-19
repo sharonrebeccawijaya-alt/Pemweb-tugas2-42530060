@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jelajahi makanan, camilan, kopi, dan minuman Senja Café.">
+  <title><%= title %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <main>
+    <section class="hero container">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> GOOD FOOD, GOOD MOOD</span>
+        <h1>Temukan rasa<br>favoritmu di <em>Senja.</em></h1>
+        <p class="hero-description">Dari kopi yang menenangkan sampai hidangan yang bikin nyaman. Pilih menu favoritmu dan nikmati momen kecil hari ini.</p>
+        <a href="#daftar-menu" class="primary-button">Jelajahi Menu <span aria-hidden="true">↓</span></a>
+        <div class="hero-stats">
+          <div><strong><%= totalMenus %>+</strong><span>Pilihan menu</span></div>
+          <div class="stat-divider"></div>
+          <div><strong>Fresh</strong><span>Dibuat dengan hati</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=90" alt="Kopi dan suasana kafe yang hangat">
+        <div class="floating-note"><span class="note-icon">✳</span><span><strong>Made with love</strong><small>For your little moments</small></span></div>
+        <div class="hero-vertical-label">SLOW DOWN · SIP · ENJOY</div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="daftar-menu">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">DARI DAPUR KAMI</span>
+            <h2>Menu pilihan <em>kami.</em></h2>
+            <p class="section-subtitle">Selalu ada sesuatu yang cocok untuk suasana hatimu.</p>
+          </div>
+          <span class="menu-count"><%= menus.length %> menu ditampilkan</span>
+        </div>
+
+        <div class="filter-row" aria-label="Filter kategori menu">
+          <a class="filter-chip <%= selectedCategory === 'semua' ? 'active' : '' %>" href="/?kategori=semua">Semua menu</a>
+          <a class="filter-chip <%= selectedCategory === 'makanan' ? 'active' : '' %>" href="/?kategori=makanan">Makanan</a>
+          <a class="filter-chip <%= selectedCategory === 'camilan' ? 'active' : '' %>" href="/?kategori=camilan">Camilan</a>
+          <a class="filter-chip <%= selectedCategory === 'kopi' ? 'active' : '' %>" href="/?kategori=kopi">Kopi</a>
+          <a class="filter-chip <%= selectedCategory === 'non-kopi' ? 'active' : '' %>" href="/?kategori=non-kopi">Non-kopi</a>
+        </div>
+
+        <% if (menus.length > 0) { %>
+          <div class="menu-grid">
+            <% menus.forEach((menu) => { %>
+              <article class="menu-card">
+                <a class="menu-image-link" href="/menu/<%= menu.id %>" aria-label="Lihat detail <%= menu.name %>">
+                  <img class="menu-image" src="<%= menu.image %>" alt="<%= menu.name %>" loading="lazy">
+                  <span class="image-tag"><%= menu.tag %></span>
+                  <span class="image-arrow" aria-hidden="true">↗</span>
+                </a>
+                <div class="menu-card-body">
+                  <div class="card-meta"><span><%= menu.categoryLabel %></span><span class="meta-dot"></span><span>Senja special</span></div>
+                  <h3><a href="/menu/<%= menu.id %>"><%= menu.name %></a></h3>
+                  <p><%= menu.description %></p>
+                  <div class="card-bottom">
+                    <strong class="price"><%= formatRupiah(menu.price) %></strong>
+                    <a class="detail-link" href="/menu/<%= menu.id %>">Detail menu <span aria-hidden="true">→</span></a>
+                  </div>
+                </div>
+              </article>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <div class="empty-state">
+            <span>☕</span>
+            <h3>Menu belum tersedia</h3>
+            <p>Coba pilih kategori lainnya.</p>
+            <a class="primary-button" href="/">Tampilkan semua menu</a>
+          </div>
+        <% } %>
+        <div class="menu-footnote"><span>✳</span> Harga dan menu pada website ini merupakan data contoh untuk tugas kuliah.</div>
+      </div>
+    </section>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>

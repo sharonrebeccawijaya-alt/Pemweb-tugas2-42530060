@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | Senja Café</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <main class="detail-page container">
+    <% if (menu) { %>
+      <a href="/" class="back-link">← Kembali ke semua menu</a>
+      <div class="detail-layout">
+        <div class="detail-photo-wrap">
+          <img class="detail-photo" src="<%= menu.image %>" alt="<%= menu.name %>">
+          <span class="detail-photo-tag"><%= menu.tag %></span>
+        </div>
+        <div class="detail-copy">
+          <span class="eyebrow"><%= menu.categoryLabel %> · SENJA CAFÉ</span>
+          <h1><%= menu.name %></h1>
+          <div class="detail-price"><%= formatRupiah(menu.price) %></div>
+          <div class="detail-rule"></div>
+          <h2>Tentang menu ini</h2>
+          <p><%= menu.description %></p>
+          <div class="detail-info">
+            <div><span class="info-icon">✳</span><span><strong>Dibuat dengan hati</strong><small>Rasa nyaman di setiap sajian</small></span></div>
+            <div><span class="info-icon">◷</span><span><strong>Cocok untuk kapan saja</strong><small>Temani momen santaimu</small></span></div>
+          </div>
+          <a href="/" class="primary-button">Jelajahi menu lainnya <span aria-hidden="true">→</span></a>
+          <p class="sample-note">*Harga dan deskripsi merupakan data contoh untuk tugas kuliah.</p>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="not-found">
+        <span class="eyebrow">MENU TIDAK DITEMUKAN</span>
+        <h1>Ups, menu ini belum ada.</h1>
+        <p>ID menu yang kamu cari tidak ditemukan. Silakan kembali ke katalog.</p>
+        <a href="/" class="primary-button">Kembali ke katalog</a>
+      </div>
+    <% } %>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>
